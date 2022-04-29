@@ -16,7 +16,7 @@
     "start": "webpack serve --mode development --open"
   },
   "devDependencies": {
-    "copy-webpack-plugin":"file:10.2.4@babel/core@7.17.9",
+    "copy-webpack-plugin": "10.2.4",
     "eslint": "8.13.0",
     "eslint-config-htmlacademy": "5.1.2",
     "webpack": "5.7.2",
