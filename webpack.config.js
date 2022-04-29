@@ -14,7 +14,6 @@ module.exports = {
       patterns: [{from: 'public'}],
     }),
   ],
-};
 module: {
   rules: [
     {
@@ -23,4 +22,5 @@ module: {
       use: ['babel-loader']
     }
   ]
+}
 };
