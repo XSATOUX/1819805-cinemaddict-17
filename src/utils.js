@@ -8,4 +8,9 @@ const getRandomPositiveInteger = (a, b) => {
 
 const getRandom = (array) => array[getRandomPositiveInteger(0, array.length - 1)];
 
-export {getRandomPositiveInteger, getRandom};
+const generateId = () => {
+  let counter = 0;
+  return () => ++counter;
+};
+
+export {getRandomPositiveInteger, getRandom, generateId};

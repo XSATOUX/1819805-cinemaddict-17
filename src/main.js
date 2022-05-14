@@ -3,7 +3,7 @@ import UserTitleView from './view/user-title-view.js';
 import {render} from './render.js';
 import FilmMenuView from './view/film-menu-view.js';
 import FilmPresenter from './presenter/film-presenter.js';
-import FilmModel from './mock/model/film-model.js';
+import FilmModel from './model/film-model.js';
 
 
 const siteHeaderElement = document.querySelector('.header');

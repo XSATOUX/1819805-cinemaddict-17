@@ -1,4 +1,5 @@
-import { getRandomPositiveInteger } from './utils.js';
+import dayjs from 'dayjs';
+import { getRandomPositiveInteger } from '../utils.js';
 
 const minFilms = 5;
 const maxFilms = 20;
@@ -49,6 +50,27 @@ const generateRating = () => getRandomPositiveInteger(0, 10);
 
 const generateYear = () => getRandomPositiveInteger(1930, 1960);
 
+const generateReleaseDate = () => {
+  const minReleaseDate = 1950;
+  const dateSpace = getRandomPositiveInteger(-minReleaseDate, 0);
+
+  return dayjs().add(dateSpace, 'day').toDate();
+};
+
+const generateGenre = () => {
+  const genres = [
+    'Musical',
+    'Horror',
+    'Drama',
+    'Comedy',
+    'Cartoon',
+    'Mystery',
+  ];
+  const randomIndex = getRandomPositiveInteger(0, genres.length - 1);
+  return genres[randomIndex];
+};
+
+
 const getFilm = () => ({
   'id': '0',
   'comments': [1,2,3,4,5],
@@ -56,7 +78,7 @@ const getFilm = () => ({
     'title': 'A Little Pony Without The Carpet',
     'alternativeTitle': 'Laziness Who Sold Themselves',
     'totalRating': 5.3,
-    'poster':`images/posters/${getRandomPositiveInteger(generatePoster)}`,
+    'poster':`images/posters/${generatePoster()}`,
     'ageRating': getRandomPositiveInteger(0,18),
     'director': 'Tom Ford',
     'writers': [
@@ -66,34 +88,23 @@ const getFilm = () => ({
       'Morgan Freeman',
     ],
     'release': {
-      'date': '2019-05-11T00:00:00.000Z',
-      'releaseCountry': 'Finland'
+      'date': generateReleaseDate(),
+      'release.Country': 'Finland'
     },
     'runtime': getRandomPositiveInteger(30,220),
-    'genre': [
-      'Comedy',
-      'Drama',
-      'Melodrama'
-    ],
-    'description': 'Oscar-winning film, a war drama about two young people, from the creators of timeless classic \'Nu, Pogodi!\' and \'Alice in Wonderland\', with the best fight scenes since Bruce Lee.'
+    'genres':[],
+    'description':'Oscar-winning film, a war drama about two young people, from the creators of timeless classic',
   },
   'userDetails': {
-    'watchList': getRandomPositiveInteger(0,3),
-    'alreadyWatched': getRandomPositiveInteger(0,5),
+    'watchList': Boolean(getRandomPositiveInteger(0,3)),
+    'alreadyWatched': Boolean(getRandomPositiveInteger(0,5)),
     'watchingDate': '2019-04-12T16:12:32.554Z',
-    'favorite': getRandomPositiveInteger(0,5)
+    'favorite': Boolean(getRandomPositiveInteger(0,5))
   }
 });
 
 
 const getFilmList = () => Array.from({ length: getRandomPositiveInteger(minFilms, maxFilms)}, getFilm);
 
-export const generateFilm = () => ({
-  titles:generateTitles(),
-  filmPosters:generatePoster(),
-  descriptions:generateDescription(),
-  rating:generateRating(),
-  year:generateYear()
-});
 
-export {getFilm, getFilmList};
+export {getFilm, getFilmList,generateTitles, generateRating, generateYear,generatePoster, generateDescription, generateGenre };

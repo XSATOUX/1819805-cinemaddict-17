@@ -1,20 +1,19 @@
 import {createElement} from '../render.js';
+import {generateTitles, generateRating, generateYear,generatePoster, generateDescription, generateGenre} from '../mock/films.js';
 
 const createFilmCardTemplate = (film) => {
-  const {titles, filmPosters, descriptions, rating, year} = film;
-
- return (
-   `<article class="film-card">
+  const {titles} = film;
+  return(`<article class="film-card">
   <a class="film-card__link">
-    <h3 class="film-card__title">${titles}</h3>
-    <p class="film-card__rating">${rating}</p>
+    <h3 class="film-card__title">${generateTitles()}</h3>
+    <p class="film-card__rating">${generateRating()}</p>
     <p class="film-card__info">
-      <span class="film-card__year">${year}</span>
+      <span class="film-card__year">${generateYear()}</span>
       <span class="film-card__duration">1h 55m</span>
-      <span class="film-card__genre">Musical</span>
+      <span class="film-card__genre">${generateGenre()}</span>
     </p>
-    <img src="./images/posters/${filmPosters}" alt="" class="film-card__poster">
-    <p class="film-card__description">${descriptions}</p>
+    <img src="./images/posters/${generatePoster()}" alt="" class="film-card__poster">
+    <p class="film-card__description">${generateDescription()}</p>
     <span class="film-card__comments">5 comments</span>
   </a>
   <div class="film-card__controls">
@@ -22,9 +21,8 @@ const createFilmCardTemplate = (film) => {
     <button class="film-card__controls-item film-card__controls-item--mark-as-watched" type="button">Mark as watched</button>
     <button class="film-card__controls-item film-card__controls-item--favorite" type="button">Mark as favorite</button>
   </div>
-</article>`
-);
-
+</article>`);
+};
 export default class FilmCardView {
   constructor(film){
     this.film = film;

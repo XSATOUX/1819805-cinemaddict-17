@@ -11,10 +11,10 @@ export default class FilmPresenter {
   filmsComponent = new FilmListView();
   filmsContainerComponent = new FilmsView();
 
-  init = (filmContainer, filmModel) => {
+  init = (filmContainer, filmsModel) => {
     this.filmContainer = filmContainer;
-    this.filmModel = filmModel;
-    this.filmsModelContainer = [...filmModel.getFilms()];
+    this.filmModel = filmsModel;
+    this.filmsModelContainer = [...filmsModel.getFilms()];
 
     render(new SortView(), this.filmContainer);
     render(this.filmsContainerComponent,this.filmsComponent.getElement());
