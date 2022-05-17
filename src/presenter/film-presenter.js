@@ -14,7 +14,7 @@ export default class FilmPresenter {
   init = (filmContainer, filmsModel) => {
     this.filmContainer = filmContainer;
     this.filmModel = filmsModel;
-    this.filmsModelContainer = [...filmsModel.getFilms()];
+    this.films = [...filmsModel.getFilms()];
 
     render(new SortView(), this.filmContainer);
     render(this.filmsContainerComponent,this.filmsComponent.getElement());
@@ -22,8 +22,8 @@ export default class FilmPresenter {
     render(this.filmsComponent, this.filmContainer);
     render(this.filmsContainer, this.filmsComponent.getElement());
 
-    for (let i = 0; i < this.filmsModelContainer.length; i++) {
-      render(new FilmCardView(this.filmsModelContainer[1]), this.filmsContainer.getElement());
+    for (let i = 0; i < this.films.length; i++) {
+      render(new FilmCardView(this.films[1]), this.filmsContainer.getElement());
     }
 
     render(new ShowMoreButtonView(), this.filmsComponent.getElement());

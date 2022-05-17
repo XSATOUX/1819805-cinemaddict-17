@@ -1,4 +1,3 @@
-
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -8,9 +7,6 @@ const getRandomPositiveInteger = (a, b) => {
 
 const getRandom = (array) => array[getRandomPositiveInteger(0, array.length - 1)];
 
-const generateId = () => {
-  let counter = 0;
-  return () => ++counter;
-};
+const getRandomDate = (startDate, endDate) => new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()));
 
-export {getRandomPositiveInteger, getRandom, generateId};
+export {getRandomPositiveInteger, getRandomDate,getRandom};

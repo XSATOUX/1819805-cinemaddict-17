@@ -1,5 +1,4 @@
-import dayjs from 'dayjs';
-import { getRandomPositiveInteger } from '../utils.js';
+import { getRandom, getRandomPositiveInteger , getRandomDate} from './random';
 
 const minFilms = 5;
 const maxFilms = 20;
@@ -45,17 +44,23 @@ const generateDescription = () => {
   const randomIndex = getRandomPositiveInteger(0, descriptions.length - 1);
   return descriptions[randomIndex];
 };
+const generateCountry = () => {
+  const countries = [
+    'United States',
+    'Austria',
+    'Germany',
+    'Denmark',
+    'Spain',
+  ];
+  const randomIndex = getRandomPositiveInteger(0, countries.length - 1);
+  return countries[randomIndex];
+};
+
 
 const generateRating = () => getRandomPositiveInteger(0, 10);
 
-const generateYear = () => getRandomPositiveInteger(1930, 1960);
+const generateYear = () => getRandomPositiveInteger(1930, 1975);
 
-const generateReleaseDate = () => {
-  const minReleaseDate = 1950;
-  const dateSpace = getRandomPositiveInteger(-minReleaseDate, 0);
-
-  return dayjs().add(dateSpace, 'day').toDate();
-};
 
 const generateGenre = () => {
   const genres = [
@@ -70,41 +75,58 @@ const generateGenre = () => {
   return genres[randomIndex];
 };
 
+const generateWriter = () => {
+  const writers = [
+    'Charles Dickens',
+    'Herman Melville',
+    'Jules Verne',
+    'Emily Dickinson',
+    'Gabriel Garcia Marques',
+  ];
+  const randomIndex = getRandomPositiveInteger(0, writers.length - 1);
+  return writers[randomIndex];
+};
 
-const getFilm = () => ({
-  'id': '0',
-  'comments': [1,2,3,4,5],
-  'filmInfo': {
-    'title': 'A Little Pony Without The Carpet',
-    'alternativeTitle': 'Laziness Who Sold Themselves',
-    'totalRating': 5.3,
-    'poster':`images/posters/${generatePoster()}`,
-    'ageRating': getRandomPositiveInteger(0,18),
-    'director': 'Tom Ford',
-    'writers': [
-      'Takeshi Kitano',
-    ],
-    'actors': [
-      'Morgan Freeman',
-    ],
-    'release': {
-      'date': generateReleaseDate(),
-      'release.Country': 'Finland'
+const generateActor = () => {
+  const actors = [
+    'Betty White',
+    'Morgan Freeman',
+    'Keanu Reeves',
+    'Lucille Ball',
+    'Jack Nicholson',
+  ];
+  const randomIndex = getRandomPositiveInteger(0, actors.length - 1);
+  return actors[randomIndex];
+};
+
+export const getFilm = () => ({
+  id: 0,
+  comments: [1,2,3,4,5],
+  filmInfo: {
+    title:getRandom(generateTitles),
+    alternativeTitle: 'Laziness Who Sold Themselves',
+    totalRating: getRandomPositiveInteger(3,10),
+    poster:`images/posters/${generatePoster()}`,
+    ageRating: getRandomPositiveInteger(0,18),
+    director: 'Tom Ford',
+    writers: getRandom(generateWriter),
+    actors:getRandom(generateActor),
+    release: {
+      date: getRandomDate(new Date(1940, 1, 1), new Date),
+      country:getRandom(generateCountry),
     },
-    'runtime': getRandomPositiveInteger(30,220),
-    'genres':[],
-    'description':'Oscar-winning film, a war drama about two young people, from the creators of timeless classic',
+    runtime: getRandomPositiveInteger(30,220),
+    genres: Array.from({ length: 3 }, generateGenre),
+    description: getRandom(generateDescription),
   },
-  'userDetails': {
-    'watchList': Boolean(getRandomPositiveInteger(0,3)),
-    'alreadyWatched': Boolean(getRandomPositiveInteger(0,5)),
-    'watchingDate': '2019-04-12T16:12:32.554Z',
-    'favorite': Boolean(getRandomPositiveInteger(0,5))
-  }
+  userDetails: {
+    watchList: Boolean(getRandomPositiveInteger(0,3)),
+    alreadyWatched: Boolean(getRandomPositiveInteger(0,5)),
+    watchingDate: getRandomDate(new Date(2005, 1, 1), new Date),
+    favorite: Boolean(getRandomPositiveInteger(0,5))
+  },
 });
 
+const getFilmList = () => Array.from({ length: getRandom(minFilms, maxFilms)}, getFilm);
 
-const getFilmList = () => Array.from({ length: getRandomPositiveInteger(minFilms, maxFilms)}, getFilm);
-
-
-export {getFilm, getFilmList,generateTitles, generateRating, generateYear,generatePoster, generateDescription, generateGenre };
+export {getFilmList, generateRating , generateYear};
