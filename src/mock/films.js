@@ -9,8 +9,7 @@ const generateTitles = () => {
     'Popeye meets sinbad',
     'Sentenced for a murder',
     'Sagebrush trail',
-    'The great flamarion'
-
+    'The great flamarion',
   ];
   const randomIndex = getRandomPositiveInteger(0, titles.length - 1);
   return titles[randomIndex];
@@ -24,7 +23,7 @@ const generatePoster = () => {
     'santa-claus-conquers-the-martians.jpg',
     'the-dance-of-life.jpg',
     'the-great-flamarion.jpg',
-    'the-man-with-the-golden-arm.jpg'
+    'the-man-with-the-golden-arm.jpg',
   ];
 
   const randomIndex = getRandomPositiveInteger(0, filmPosters.length - 1);
@@ -101,9 +100,9 @@ const generateActor = () => {
 
 export const getFilm = () => ({
   id: 0,
-  comments: [1,2,3,4,5],
+  comments: getRandomPositiveInteger(3,85),
   filmInfo: {
-    title:getRandom(generateTitles),
+    title: `${generateTitles()}`,
     alternativeTitle: 'Laziness Who Sold Themselves',
     totalRating: getRandomPositiveInteger(3,10),
     poster:`images/posters/${generatePoster()}`,
@@ -112,12 +111,12 @@ export const getFilm = () => ({
     writers: getRandom(generateWriter),
     actors:getRandom(generateActor),
     release: {
-      date: getRandomDate(new Date(1940, 1, 1), new Date),
+      date:new Date('2019-04-12T16:12:32.554Z'),
       country:getRandom(generateCountry),
     },
     runtime: getRandomPositiveInteger(30,220),
-    genres: Array.from({ length: 3 }, generateGenre),
-    description: getRandom(generateDescription),
+    genres: Array.from({ length: 1 }, generateGenre),
+    description: `${generateDescription()}`,
   },
   userDetails: {
     watchList: Boolean(getRandomPositiveInteger(0,3)),

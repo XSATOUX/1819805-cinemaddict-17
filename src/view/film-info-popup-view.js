@@ -59,8 +59,8 @@ const createFilmInfoPopupTemplate = (comments,film = sampleFilm) => {
     </li>
   `).join('');
 
-  const createPopupTemplate = (movie, commentsList) => {
-    const {comments, filmInfo, userDetails} = film;
+  const createPopupTemplate = (film, commentsList) => {
+    const {id,comments, filmInfo, userDetails} = film;
     const {title,alternativeTitle, poster,ageRating , totalRating, release, runtime,description, genres, director, writers, actors} = filmInfo;
     const {date, releaseCountry} = release;
   return `
