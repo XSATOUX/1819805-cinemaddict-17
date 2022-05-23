@@ -7,25 +7,30 @@ import FilmsView from '../view/films-view.js';
 import {render} from '../render.js';
 
 export default class FilmPresenter {
-  filmsContainer = new FilmContainerView();
-  filmsComponent = new FilmListView();
-  filmsContainerComponent = new FilmsView();
+  #filmContainer = null;
+  #filmsModel = null;
+
+  #filmsContainer = new FilmContainerView();
+  #filmsComponent = new FilmListView();
+  #filmsContainerComponent = new FilmsView();
+
+  #films = [];
 
   init = (filmContainer, filmsModel) => {
-    this.filmContainer = filmContainer;
-    this.filmModel = filmsModel;
-    this.films = [...filmsModel.getFilms()];
+    this.#filmContainer = filmContainer;
+    this.#filmsModel = filmsModel;
+    this.#films = [...this.#filmsModel.films];
 
-    render(new SortView(), this.filmContainer);
-    render(this.filmsContainerComponent,this.filmsComponent.getElement());
-    render(this.filmsContainerComponent,this.filmContainer);
-    render(this.filmsComponent, this.filmContainer);
-    render(this.filmsContainer, this.filmsComponent.getElement());
+    render(new SortView(), this.#filmContainer);
+    render(this.#filmsContainerComponent,this.#filmsComponent.element);
+    render(this.#filmsContainerComponent,this.#filmContainer);
+    render(this.#filmsComponent,this.#filmContainer);
+    render(this.#filmsContainer,this.#filmsComponent.element);
 
-    for (let i = 0; i < this.films.length; i++) {
-      render(new FilmCardView(this.films[1]), this.filmsContainer.getElement());
+    for (let i = 0; i < this.#films.length; i++) {
+      render(new FilmCardView(this.#films[1]), this.#filmsContainer.element);
     }
 
-    render(new ShowMoreButtonView(), this.filmsComponent.getElement());
+    render(new ShowMoreButtonView(), this.#filmsComponent.element);
   };
 }
