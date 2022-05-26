@@ -30,6 +30,7 @@ const sampleFilm = {
 
 const createFilmInfoPopupTemplate = (comments,film = sampleFilm) => {
   const {userDetails, filmInfo} = film;
+  const {title,alternativeTitle, poster,ageRating , totalRating, release, runtime,description, genres, director, writers, actors} = filmInfo;
 
   const watchlistClassName = userDetails.watchlist
     ? 'film-details__control-button--active'
@@ -43,7 +44,7 @@ const createFilmInfoPopupTemplate = (comments,film = sampleFilm) => {
     ? 'film-details__control-button--active'
     : '';
 
-  const createCommentsTemplate = (comments)  => comments.map((comment) =>
+  const createCommentsTemplate = ()  => comments.map((comment) =>
     `<li class="film-details__comment" >
       <span class="film-details__comment-emoji">
         <img src="./images/emoji/${comment.emotion}.png" width="55" height="55" alt="emoji-smile">
@@ -59,10 +60,10 @@ const createFilmInfoPopupTemplate = (comments,film = sampleFilm) => {
     </li>
   `).join('');
 
-  const createPopupTemplate = (film, commentsList) => {
-    const {id,comments, filmInfo, userDetails} = film;
-    const {title,alternativeTitle, poster,ageRating , totalRating, release, runtime,description, genres, director, writers, actors} = filmInfo;
-    const {date, releaseCountry} = release;
+  // const createPopupTemplate = (film, commentsList) => {
+  //   const {id,comments, filmInfo, userDetails} = film;
+  //   const {title,alternativeTitle, poster,ageRating , totalRating, release, runtime,description, genres, director, writers, actors} = filmInfo;
+  //   const {date, releaseCountry} = release;
   return `
     <section class="film-details">
       <form class="film-details__inner" action="" method="get">
@@ -113,7 +114,7 @@ const createFilmInfoPopupTemplate = (comments,film = sampleFilm) => {
                 <tr class="film-details__row">
                   <td class="film-details__term">${genres}</td>
                   <td class="film-details__cell">
-                    ${generateGenre(filmInfo)}
+                    ${genres}
                   </td>
                 </tr>
               </table>
@@ -165,6 +166,11 @@ const createFilmInfoPopupTemplate = (comments,film = sampleFilm) => {
 };
 export default class FilmInfoPopupView {
   #element = null;
+  #film = null;
+
+  constructor(film) {
+    this.#film = film;
+  }
 
   get template() {
     return createFilmInfoPopupTemplate();
