@@ -6,9 +6,10 @@ import SortView from '../view/sort-view.js';
 import FilmsView from '../view/films-view.js';
 import FilmPopupView from '../view/film-info-popup-view.js';
 import {render} from '../render.js';
+import { isEscapeEvent } from '../mock/utils.js';
 
 const MAX_FILMS_AMOUNT_PER_STEP = 5;
-const fileBodyElement = document.body;
+document.body.classList.add('hide-overlow');
 export default class FilmPresenter {
   #filmContainer = null;
   #filmsModel = null;
@@ -31,8 +32,8 @@ export default class FilmPresenter {
     render(this.#filmsComponent,this.#filmContainer);
     render(this.#filmsContainer,this.#filmsComponent.element);
 
-    for (let i = 0; i < this.#films.length; i++) {
-      this.#renderFilm(this.#films[1]);
+    for (let i = 0; i < Math.min(this.#films.length,MAX_FILMS_AMOUNT_PER_STEP);i++) {
+      this.#renderFilm(this.#films[i]);
     }
     if (this.#films.length > MAX_FILMS_AMOUNT_PER_STEP) {
       render(this.#showMoreButtonComponent, this.#filmsComponent.element);
@@ -44,51 +45,51 @@ export default class FilmPresenter {
 
   #handleShowMoreButtonClick = (evt) => {
     evt.preventDefault();
-    // alert('Works!');
+
   };
 
   #renderFilm = (film) => {
-    const filmListComponent = new FilmCardView(film);
+    const filmCardComponent = new FilmCardView(film);
     const filmPopupComponent = new FilmPopupView(film);
 
-    const replaceCardToForm = () => {
-      this.#filmsComponent.element.replaceChild(filmPopupComponent.element, filmListComponent.element);
+    const replaceCardToPopup = () => {
+      this.#filmsComponent.element.replaceChild(filmPopupComponent.element, filmCardComponent.element);
     };
 
-    const replaceFormToCard = () => {
-      this.#filmsComponent.element.replaceChild(filmListComponent.element, filmPopupComponent.element);
+    const replacePopupToCard = () => {
+      this.#filmsComponent.element.replaceChild(filmCardComponent.element, filmPopupComponent.element);
     };
 
     const onEscKeyDown = (evt) => {
-      if (evt.key === 'Escape') {
-        fileBodyElement.removeChild(filmPopupComponent.element);
+      if (isEscapeEvent(evt)) {
+        document.body.classList.removeChild(filmPopupComponent.element);
         document.removeEventListener('keydown', onEscKeyDown);
       }
     };
 
     const renderPopup = () => {
-      fileBodyElement.classList.add('hide-overlow');
+      document.body.classList.add('hide-overlow');
       document.addEventListener('keydown', onEscKeyDown);
-      render(filmPopupComponent, fileBodyElement);
+      render(filmPopupComponent);
     };
-    const lastPopup = fileBodyElement.querySelector('.film-details');
+    const lastPopup = document.body.querySelector('.film-details');
 
     if(lastPopup){
-      fileBodyElement.removeChilde(lastPopup);
+      document.body.classList.removeChild(lastPopup);
     }
     renderPopup();
 
-    filmListComponent.element.querySelector('.film-details__inner').addEventListener('click', () => {
-      replaceCardToForm();
+    filmCardComponent.element.querySelector('.film-details__inner').addEventListener(() => {
+      replaceCardToPopup();
       document.addEventListener('keydown', onEscKeyDown);
     });
 
     filmPopupComponent.element.querySelector('.film-details__close').addEventListener( (evt) => {
       evt.preventDefault();
-      replaceFormToCard();
+      replacePopupToCard();
       document.removeEventListener('keydown', onEscKeyDown);
     });
 
-    render(filmListComponent, this.#filmsContainer.element);
+    render(filmCardComponent, this.#filmsContainer.element);
   };
 }

@@ -1,7 +1,7 @@
 import {createElement} from '../render.js';
 
 const createFilmCardTemplate = (film) => {
-  const {id, comments, filmInfo, userDetails} = film;
+  const {comments, filmInfo, userDetails} = film;
   const {title, poster, totalRating,alternativeTitle, release, runtime, description, genres} = filmInfo;
   const {date} = release;
 
@@ -18,7 +18,7 @@ const createFilmCardTemplate = (film) => {
     : '';
 
   return (
-    `<article class="film-card"${ id }>
+    `<article class="film-card">
   <a class="film-card__link">
     <h3 class="film-card__title">${ title }</h3>
     <p class="film-card__rating">${ totalRating }</p>
@@ -30,7 +30,9 @@ const createFilmCardTemplate = (film) => {
     <img src="${ poster }" alt="${ alternativeTitle }" class="film-card__poster">
     <p class="film-card__description">${ description }</p>
     <span class="film-card__comments">${ comments }</span>
-  </a>
+  </a>);
+
+
   <div class="film-card__controls">
     <button class="film-card__controls-item film-card__controls-item--add-to-watchlist ${ watchListClassName }" type="button">Add to watchlist</button>
     <button class="film-card__controls-item film-card__controls-item--mark-as-watched ${ alreadyWatchedClassName }" type="button">Mark as watched</button>

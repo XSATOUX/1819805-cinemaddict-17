@@ -1,4 +1,4 @@
-import { getRandom, getRandomPositiveInteger , getRandomDate} from './random';
+import { getRandom, getRandomPositiveInteger , getRandomDate} from './random.js';
 
 const minFilms = 5;
 const maxFilms = 20;
@@ -115,11 +115,11 @@ export const getFilm = () => ({
       country:getRandom(generateCountry),
     },
     runtime: getRandomPositiveInteger(30,220),
-    genres: Array.from({ length: 1 }, generateGenre),
+    genres: getRandom(generateGenre),
     description: `${generateDescription()}`,
   },
   userDetails: {
-    watchList: Boolean(getRandomPositiveInteger(0,3)),
+    watchlist: Boolean(getRandomPositiveInteger(0,3)),
     alreadyWatched: Boolean(getRandomPositiveInteger(0,5)),
     watchingDate: getRandomDate(new Date(2005, 1, 1), new Date),
     favorite: Boolean(getRandomPositiveInteger(0,5))

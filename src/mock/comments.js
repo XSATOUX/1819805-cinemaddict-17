@@ -1,4 +1,4 @@
-import { getRandomPositiveInteger, getRandom, generateId, getRandomDate} from '../utils.js';
+import { getRandomPositiveInteger, getRandom, getRandomDate} from '../utils.js';
 
 const minComments = 0;
 const maxComments = 6;
@@ -15,7 +15,7 @@ const commentAuthors = [
 ];
 const emotions = ['smile', 'sleeping', 'puke', 'angry'];
 
-const generateCommentId = generateId();
+const generateCommentId = getRandomPositiveInteger(23,256);
 
 const getComment = () => ({
   id: generateCommentId(),
