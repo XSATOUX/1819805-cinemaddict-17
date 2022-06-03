@@ -4,4 +4,8 @@ const generateId = () => {
   return () => ++counter;
 };
 
-export {generateId};
+const ESCAPE_KEYS = ['Escape', 'Esc'];
+
+const isEscapeEvent = (evt) => ESCAPE_KEYS.includes(evt.key);
+
+export {generateId, isEscapeEvent};
